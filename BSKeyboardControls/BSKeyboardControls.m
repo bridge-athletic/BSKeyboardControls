@@ -124,6 +124,13 @@
                 }
             
                 [self updatePrevoidNextEnabledStates];
+                
+                if (_visibleControls & BSKeyboardControlSwitch && [_delegate respondsToSelector:@selector(isSwitchOnForKeyboardControls:withField:)]) {
+                    BOOL switchShouldBeOn = [_delegate isSwitchOnForKeyboardControls:self withField:activeField];
+                    if (switchShouldBeOn != _dcRoundSwitch.on) {
+                        [_dcRoundSwitch setOn:switchShouldBeOn animated:YES ignoreControlEvents:YES];
+                    }
+                }
             }
         }
     }

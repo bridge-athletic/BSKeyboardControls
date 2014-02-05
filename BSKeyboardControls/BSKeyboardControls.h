@@ -141,4 +141,10 @@ typedef enum
  */
 - (void)keyboardControlsSwitchValueChanged:(BSKeyboardControls *)keyboardControls;
 
+/**
+ *  Called when a field becomes active.
+ *  @param keyboardControls The instance of keyboard controls.
+ */
+- (BOOL)isSwitchOnForKeyboardControls:(BSKeyboardControls *)keyboardControls withField:(UIView *)field;
+
 @end

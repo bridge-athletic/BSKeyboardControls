@@ -116,6 +116,13 @@ enum
     NSLog(@"Switch changed!!  New Value:  %@", keyboardControls.switchOn ? keyboardControls.switchOnTitle : keyboardControls.switchOffTitle);
 }
 
+- (BOOL)isSwitchOnForKeyboardControls:(BSKeyboardControls *)keyboardControls withField:(UIView *)field {
+    if (field == _textFieldUsername || field == _textFieldPassword || field == _textFieldRepeatedPassword || field == _textFieldFavoriteBook) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 #pragma mark -
 #pragma mark Table View Delegate
