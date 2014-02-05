@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DCRoundSwitch/DCRoundSwitch.h>
 
 /**
  *  Available controls.
@@ -104,6 +105,11 @@ typedef enum
 @property (nonatomic, strong) NSString *switchOffTitle;
 
 /**
+ *  Sets and returns current state of the switch
+ */
+@property (nonatomic, assign) BOOL switchOn;
+
+/**
  *  Initialize keyboard controls.
  *  @param fields Fields which the controls should handle.
  *  @return Initialized keyboard controls.
@@ -128,4 +134,11 @@ typedef enum
  *  @param keyboardControls The instance of keyboard controls.
  */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls;
+
+/**
+ *  Called when the switch value changes.
+ *  @param keyboardControls The instance of keyboard controls.
+ */
+- (void)keyboardControlsSwitchValueChanged:(BSKeyboardControls *)keyboardControls;
+
 @end

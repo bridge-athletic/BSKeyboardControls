@@ -68,7 +68,13 @@
                                                             target:self
                                                             action:@selector(doneButtonPressed:)]];
         
+        [self setSwitchOnTitle:@"ON"];
+        [self setSwitchOffTitle:@"OFF"];
+        
         _dcRoundSwitch = [[DCRoundSwitch alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        _dcRoundSwitch.onText = self.switchOnTitle;
+        _dcRoundSwitch.offText = self.switchOffTitle;
+        [_dcRoundSwitch addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
         _switchItem = [[UIBarButtonItem alloc] initWithCustomView:_dcRoundSwitch];
         
         [self setVisibleControls:(BSKeyboardControlPreviousNext | BSKeyboardControlSwitch | BSKeyboardControlDone)];
@@ -231,6 +237,16 @@
     }
 }
 
+- (void)setSwitchOn:(BOOL)switchOn {
+    if (_dcRoundSwitch.on != switchOn) {
+        _dcRoundSwitch.on = switchOn;
+    }
+}
+
+- (BOOL)switchOn {
+    return _dcRoundSwitch.on;
+}
+
 - (void)setVisibleControls:(BSKeyboardControl)visibleControls
 {
     if (visibleControls != _visibleControls)
@@ -264,6 +280,12 @@
     if ([self.delegate respondsToSelector:@selector(keyboardControlsDonePressed:)])
     {
         [self.delegate keyboardControlsDonePressed:self];
+    }
+}
+
+- (void)switchValueChanged:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(keyboardControlsSwitchValueChanged:)]) {
+        [_delegate keyboardControlsSwitchValueChanged:self];
     }
 }
 

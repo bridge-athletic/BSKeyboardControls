@@ -112,6 +112,10 @@ enum
     [self.view endEditing:YES];
 }
 
+- (void)keyboardControlsSwitchValueChanged:(BSKeyboardControls *)keyboardControls {
+    NSLog(@"Switch changed!!  New Value:  %@", keyboardControls.switchOn ? keyboardControls.switchOnTitle : keyboardControls.switchOffTitle);
+}
+
 
 #pragma mark -
 #pragma mark Table View Delegate
