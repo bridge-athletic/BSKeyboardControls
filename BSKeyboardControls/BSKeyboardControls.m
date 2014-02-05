@@ -132,15 +132,14 @@
                     
                     if (shouldShowOptionalField && _visibleControls & _optionalControl) {
                         // optionalControl is already in visible controls, don't need to do anything...
-                    } else if (!shouldShowOptionalField && _visibleControls & _optionalControl) {
+                    } else if (!shouldShowOptionalField) {
                     
                         BSKeyboardControl complementOptionalControl = ~_optionalControl;
                         [self setVisibleControls:_visibleControls & complementOptionalControl];
                         
                     } else {
                         [self setVisibleControls:_visibleControls | _optionalControl];
-                    }
-                    
+                    }                    
                 }
                 
                 if (_visibleControls & BSKeyboardControlSwitch && [_delegate respondsToSelector:@selector(isSwitchOnForKeyboardControls:withField:)]) {
