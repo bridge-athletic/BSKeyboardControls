@@ -1,0 +1,7 @@
+workspace 'Example.xcworkspace'
+platform :ios, '6.1'
+
+
+xcodeproj 'Example.xcodeproj'
+
+pod 'DCRoundSwitch'

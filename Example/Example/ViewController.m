@@ -51,6 +51,8 @@ enum
     
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
     [self.keyboardControls setDelegate:self];
+    [self.keyboardControls setSwitchOnTitle:@"kgs"];
+    [self.keyboardControls setSwitchOffTitle:@"lbs"];
 }
 
 - (void)viewDidUnload

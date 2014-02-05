@@ -14,7 +14,8 @@
 typedef enum
 {
     BSKeyboardControlPreviousNext = 1 << 0,
-    BSKeyboardControlDone = 1 << 1
+    BSKeyboardControlSwitch = 1 << 1,
+    BSKeyboardControlDone = 1 << 2
 } BSKeyboardControl;
 
 /**
@@ -91,6 +92,16 @@ typedef enum
  *  Tint color of the done button.
  */
 @property (nonatomic, strong) UIColor *doneTintColor;
+
+/**
+ *  Title of the on state for the switch.
+ */
+@property (nonatomic, strong) NSString *switchOnTitle;
+
+/**
+ *  Title of the off state for the switch.
+ */
+@property (nonatomic, strong) NSString *switchOffTitle;
 
 /**
  *  Initialize keyboard controls.

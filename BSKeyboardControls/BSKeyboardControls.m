@@ -7,6 +7,7 @@
 //
 
 #import "BSKeyboardControls.h"
+#import <DCRoundSwitch/DCRoundSwitch.h>
 
 @interface BSKeyboardControls ()
 @property (nonatomic, strong) UIToolbar *toolbar;
@@ -14,6 +15,8 @@
 @property (nonatomic, strong) UIBarButtonItem *leftArrowButton;
 @property (nonatomic, strong) UIBarButtonItem *rightArrowButton;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *switchItem;
+@property (nonatomic, strong) DCRoundSwitch *dcRoundSwitch;
 @property (nonatomic, strong) UIBarButtonItem *segmentedControlItem;
 @end
 
@@ -65,7 +68,10 @@
                                                             target:self
                                                             action:@selector(doneButtonPressed:)]];
         
-        [self setVisibleControls:(BSKeyboardControlPreviousNext | BSKeyboardControlDone)];
+        _dcRoundSwitch = [[DCRoundSwitch alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        _switchItem = [[UIBarButtonItem alloc] initWithCustomView:_dcRoundSwitch];
+        
+        [self setVisibleControls:(BSKeyboardControlPreviousNext | BSKeyboardControlSwitch | BSKeyboardControlDone)];
         
         [self setFields:fields];
     }
@@ -88,6 +94,8 @@
     [self setLeftArrowButton:nil];
     [self setSegmentedControl:nil];
     [self setSegmentedControlItem:nil];
+    [self setDcRoundSwitch:nil];
+    [self setSwitchItem:nil];
     [self setDoneButton:nil];
 }
 
@@ -205,6 +213,24 @@
     }
 }
 
+- (void)setSwitchOnTitle:(NSString *)switchOnTitle {
+    if (switchOnTitle != _switchOnTitle) {
+        
+        [_dcRoundSwitch setOnText:switchOnTitle];
+        
+        _switchOnTitle = switchOnTitle;
+    }
+}
+
+- (void)setSwitchOffTitle:(NSString *)switchOffTitle {
+    if (switchOffTitle != _switchOffTitle) {
+        
+        [_dcRoundSwitch setOffText:switchOffTitle];
+        
+        _switchOffTitle = switchOffTitle;
+    }
+}
+
 - (void)setVisibleControls:(BSKeyboardControl)visibleControls
 {
     if (visibleControls != _visibleControls)
@@ -306,6 +332,11 @@
         {
             [items addObject:self.segmentedControlItem];
         }
+    }
+    
+    if (self.visibleControls & BSKeyboardControlSwitch) {
+        [items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+        [items addObject:self.switchItem];
     }
     
     if (self.visibleControls & BSKeyboardControlDone)
