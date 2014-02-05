@@ -14,6 +14,7 @@
  */
 typedef enum
 {
+    BSKeyboardControlNone = 0,
     BSKeyboardControlPreviousNext = 1 << 0,
     BSKeyboardControlSwitch = 1 << 1,
     BSKeyboardControlDone = 1 << 2
@@ -42,6 +43,12 @@ typedef enum
  *  Visible controls. Use a bitmask to show multiple controls.
  */
 @property (nonatomic, assign) BSKeyboardControl visibleControls;
+
+/**
+ *  Optional control. Used to optionally show a field based on the delegate response.
+ */
+@property (nonatomic, assign) BSKeyboardControl optionalControl;
+
 
 /**
  *  Fields which the controls should handle.
@@ -140,6 +147,12 @@ typedef enum
  *  @param keyboardControls The instance of keyboard controls.
  */
 - (void)keyboardControlsSwitchValueChanged:(BSKeyboardControls *)keyboardControls;
+
+/**
+ *  Called when a field becomes active.
+ *  @param keyboardControls The instance of keyboard controls.
+ */
+- (BOOL)shouldKeyboardControls:(BSKeyboardControls *)keyboardControls showOptionalControl:(BSKeyboardControl)optionalControl forField:(UIView *)field;
 
 /**
  *  Called when a field becomes active.

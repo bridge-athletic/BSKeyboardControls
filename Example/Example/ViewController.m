@@ -51,6 +51,7 @@ enum
     
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:fields]];
     [self.keyboardControls setDelegate:self];
+    [self.keyboardControls setOptionalControl:BSKeyboardControlSwitch];
     [self.keyboardControls setSwitchOnTitle:@"kgs"];
     [self.keyboardControls setSwitchOffTitle:@"lbs"];
 }
@@ -114,6 +115,14 @@ enum
 
 - (void)keyboardControlsSwitchValueChanged:(BSKeyboardControls *)keyboardControls {
     NSLog(@"Switch changed!!  New Value:  %@", keyboardControls.switchOn ? keyboardControls.switchOnTitle : keyboardControls.switchOffTitle);
+}
+
+- (BOOL)shouldKeyboardControls:(BSKeyboardControls *)keyboardControls showOptionalControl:(BSKeyboardControl)optionalControl forField:(UIView *)field {
+    if (field == _textFieldUsername || field == _textFieldPassword || field == _textFieldRepeatedPassword || field == _textFieldFavoriteBook || field == _textFieldFavoriteFood) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (BOOL)isSwitchOnForKeyboardControls:(BSKeyboardControls *)keyboardControls withField:(UIView *)field {

@@ -77,7 +77,9 @@
         [_dcRoundSwitch addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
         _switchItem = [[UIBarButtonItem alloc] initWithCustomView:_dcRoundSwitch];
         
-        [self setVisibleControls:(BSKeyboardControlPreviousNext | BSKeyboardControlSwitch | BSKeyboardControlDone)];
+        self.optionalControl = BSKeyboardControlNone;
+        
+        [self setVisibleControls:(BSKeyboardControlPreviousNext | BSKeyboardControlDone)];
         
         [self setFields:fields];
     }
@@ -124,6 +126,22 @@
                 }
             
                 [self updatePrevoidNextEnabledStates];
+                
+                if (_optionalControl != BSKeyboardControlNone && [_delegate respondsToSelector:@selector(shouldKeyboardControls:showOptionalControl:forField:)]) {
+                    BOOL shouldShowOptionalField = [_delegate shouldKeyboardControls:self showOptionalControl:_optionalControl forField:activeField];
+                    
+                    if (shouldShowOptionalField && _visibleControls & _optionalControl) {
+                        // optionalControl is already in visible controls, don't need to do anything...
+                    } else if (!shouldShowOptionalField && _visibleControls & _optionalControl) {
+                    
+                        BSKeyboardControl complementOptionalControl = ~_optionalControl;
+                        [self setVisibleControls:_visibleControls & complementOptionalControl];
+                        
+                    } else {
+                        [self setVisibleControls:_visibleControls | _optionalControl];
+                    }
+                    
+                }
                 
                 if (_visibleControls & BSKeyboardControlSwitch && [_delegate respondsToSelector:@selector(isSwitchOnForKeyboardControls:withField:)]) {
                     BOOL switchShouldBeOn = [_delegate isSwitchOnForKeyboardControls:self withField:activeField];
